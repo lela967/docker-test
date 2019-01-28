@@ -4,10 +4,12 @@ services:
 
   php:
     image: php:7.3.1-fpm
-    # networks:
-    #   - backend
-    # expose:
-    #   - 9000
+    networks:
+      - backend
+    volumes:
+      - ${WWW_PATH}:/var/www/html
+    expose:
+      - 9000
 
   mysql:
     image: mysql:5.7.25
@@ -16,18 +18,18 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     volumes:
       - ${DATA_PATH}:/var/lib/mysql
-    # networks:
-    #   - backend
+    networks:
+      - backend
 
   pma:
     image: phpmyadmin/phpmyadmin:4.7
     environment:
       PMA_HOST: mysql
     ports:
-      - 8000:80
-    # networks:
-    #   - backend
-    #   - frontend
+      - 8001:80
+    networks:
+      - backend
+      - frontend
 
   web:
     build:
@@ -35,23 +37,23 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ${WWW_PATH}:/var/www/html
-      - ./logs/apache2:/var/log/apache2
-    # networks:
-    #   - backend
-    #   - frontend
-
+      # - ./logs/apache2:/var/log/apache2
     ports:
-      - 80:80
-    # links:
-    #     - php
+      - 8000:80
+    links:
+      - php
+    networks:
+      - backend
+      - frontend
 
-# networks:
-  # frontend:
+
+networks:
+  frontend:
     # Use a custom driver
     # driver: custom-driver-1
-  # backend:
+  backend:
     # Use a custom driver which takes special options
     # driver: custom-driver-2
     # driver_opts:
-      # foo: "1"
-      # bar: "2"
+    #   foo: "1"
+    #   bar: "2"

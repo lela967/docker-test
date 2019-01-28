@@ -19,11 +19,7 @@ RUN apt-get -y update && apt-get install -y \
 COPY conf.d/* /etc/apache2/conf-enabled/
 
 # Enable rewrite module
-RUN a2enmod rewrite
-RUN a2enmod cgi
-RUN a2enmod proxy
-RUN a2enmod proxy_fcgi
-RUN a2enmod actions alias
+RUN a2enmod rewrite cgi proxy proxy_fcgi actions alias
 
 # Configure Apache2
 ENV APACHE_RUN_USER www-data
