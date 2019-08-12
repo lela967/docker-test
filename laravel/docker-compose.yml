@@ -4,6 +4,7 @@ services:
 
   php:
     image: php:7.3.1-fpm
+    container_name: php
     networks:
       - backend
     volumes:
@@ -13,7 +14,8 @@ services:
 
   mysql:
     image: mysql:5.7.25
-    restart: always
+    container_name: mysql
+#    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     volumes:
@@ -23,6 +25,7 @@ services:
 
   pma:
     image: phpmyadmin/phpmyadmin:4.7
+    container_name: pma
     environment:
       PMA_HOST: mysql
     ports:
@@ -32,6 +35,7 @@ services:
       - frontend
 
   web:
+    container_name: web
     build:
       context: ./apache
       dockerfile: Dockerfile
