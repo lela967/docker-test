@@ -51,7 +51,13 @@ services:
       - backend
       - frontend
 
-
+  sonarqube:
+    container_name: sonarqube
+    image: sonarqube:lts
+    # ports:
+      # - 9000:9000
+    expose:
+      - 9000
 networks:
   frontend:
     # Use a custom driver
