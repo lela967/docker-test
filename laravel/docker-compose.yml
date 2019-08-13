@@ -11,6 +11,8 @@ services:
       - ${WWW_PATH}:/var/www/html
     expose:
       - 9000
+      # - 9000/tcp
+      # - 9000/udp
 
   mysql:
     image: mysql:5.7.25
