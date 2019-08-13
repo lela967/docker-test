@@ -38,7 +38,7 @@ services:
 
   web:
     container_name: web
-    image: web
+    image: lela967/web:v2
     build:
       context: ./apache
       dockerfile: Dockerfile
