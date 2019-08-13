@@ -51,13 +51,18 @@ services:
       - backend
       - frontend
 
-  sonarqube:
-    container_name: sonarqube
-    image: sonarqube:lts
+  portainer:
+    container_name: portainer
+    image: portainer/portainer
     ports:
       - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     # expose:
       # - 9000
+
+
+
 networks:
   frontend:
     # Use a custom driver
